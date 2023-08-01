@@ -8,7 +8,15 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault()
-    console.log({firstName,lastName,email,password})
+    const formData = new FormData();
+    
+    formData.append("firstName",firstName);
+    formData.append("lastName",lastName);
+    formData.append("email",email);
+    formData.append("password",password);
+    const inputObject = Object.fromEntries(formData); // convert the FormData object to a JSON object
+    console.log(JSON.stringify(inputObject));
+    // console.log({firstName,lastName,email,password})
   }
 
   function handleFirstNameChange(e){    
@@ -26,7 +34,7 @@ function App() {
   console.log({firstName})
   return (
     <div className="App">
-      <form onSubmit={handleSubmit}>
+      <form method="POST" onSubmit={handleSubmit}>
         <label>          
           First Name:
           <input onChange={handleFirstNameChange} value={firstName} type='text'/>
@@ -37,11 +45,11 @@ function App() {
         </label> 
         <label>          
           Email:
-          <input onChange={handleEmailChange} value={email} type='text'/>
+          <input onChange={handleEmailChange} value={email} type='email'/>
         </label> 
         <label>          
           Password:
-          <input onChange={handlePasswordChange} value={password} type='text'/>
+          <input onChange={handlePasswordChange} value={password} type='password'/>
         </label> 
           <button type="submit">Submit</button>
       </form>
